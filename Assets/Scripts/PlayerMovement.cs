@@ -20,11 +20,14 @@ public class PlayerMovement : MonoBehaviour
     
     public bool stopped = true;
     bool isCoin2Next = true;
+    public bool isPlayer1Turn = true;
 
     public Transform coin2;
     public Transform coin3;
 
     public ThresholdLine threshold;
+
+    public OverlayDisplayManager overlay;
 
     public GoalLine goal;
 
@@ -123,10 +126,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void MasterReset()
     {
+        overlay.HandleTurnChange(isPlayer1Turn, goal.validGoal);
         ResetCoins();
         threshold.ResetLine(coin2.position, coin3.position);
         goal.ResetLine();
         indicator.ResetIndicator(body.position);
+        isPlayer1Turn = !isPlayer1Turn;
     }
 
     /// <summary>
